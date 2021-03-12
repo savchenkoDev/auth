@@ -1,0 +1,8 @@
+app:
+  secret: 63c15ef2f4b8ae0e9c9f8761b6063ef166681597
+db:
+  adapter: postgresql
+  host: localhost
+  user: postgres
+pagination:
+  page_size: 10

@@ -1,0 +1,8 @@
+ru:
+  services:
+    user_sessions:
+      create_service:
+        unauthorized: 'Сессия не может быть создана'
+    auth:
+      fetch_user_service:
+        forbidden: 'Доступ к ресурсу ограничен'

@@ -1,0 +1,27 @@
+ru:
+  errors:
+    format: "%{message}"
+  activerecord:
+    errors:
+      models:
+        ad:
+          attributes:
+            title:
+              blank: 'Укажите название'
+            description:
+              blank: 'Укажите описание'
+            city:
+              blank: 'Укажите город'
+        user:
+          attributes:
+            name:
+              blank: 'Укажите ваше имя'
+              invalid: 'Укажите имя, используя буквы, цифры или символ подчёркивания'
+            email:
+              blank: 'Укажите email'
+            password:
+              blank: 'Укажите пароль'
+        user_session:
+          attributes:
+            uuid:
+              blank: 'Отсутствует uuid'

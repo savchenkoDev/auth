@@ -1,0 +1,4 @@
+db:
+  database: auth_dev
+  max_connections: 1
+  
