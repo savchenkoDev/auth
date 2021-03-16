@@ -2,7 +2,7 @@ RSpec.describe UserSessionRoutes, type: :routes do
   describe 'POST /v1' do
     context 'missing parameters' do
       it 'returns an error' do
-        post '/v1', { email: 'bob@example.com', password: nil }
+        post '/', { email: 'bob@example.com', password: nil }
 
         expect(last_response.status).to eq 422
       end
@@ -11,10 +11,10 @@ RSpec.describe UserSessionRoutes, type: :routes do
     context 'invalid parameters' do
       let(:user) { build :user}
       it 'returns an error' do
-        post '/v1', {email: user.email, password: 'givemeatoken'}
+        post '/', {email: user.email, password: 'givemeatoken'}
 
         aggregate_failures do
-          expect(last_response.status).to eq 403
+          expect(last_response.status).to eq 401
           expect(response_body['errors']).to include('detail' => 'Сессия не может быть создана')
         end
       end
@@ -30,7 +30,7 @@ RSpec.describe UserSessionRoutes, type: :routes do
       end
 
       it 'returns created status' do
-        post '/v1', { email: 'bob@example.com', password: 'givemeatoken' }
+        post '/', { email: 'bob@example.com', password: 'givemeatoken' }
         
         aggregate_failures do
           expect(last_response.status).to eq 201

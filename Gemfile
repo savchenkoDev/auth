@@ -15,6 +15,7 @@ gem 'config'
 
 gem 'sequel'
 gem 'sequel-seed', '~> 1.1', '>= 1.1.2'
+gem 'sequel_secure_password'
 gem 'pg'
 
 gem 'dry-initializer'
@@ -24,11 +25,10 @@ gem 'activesupport', require: false
 gem 'fast_jsonapi'
 
 # authentication
-gem 'bcrypt'
 gem 'jwt'
 
-  # debug
-  gem 'byebug'
+# debug
+gem 'byebug'
 
 group :test do
   gem 'rspec'

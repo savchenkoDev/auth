@@ -94,6 +94,9 @@ GEM
     sequel (5.42.0)
     sequel-seed (1.1.2)
       sequel (>= 4.49.0)
+    sequel_secure_password (0.2.15)
+      bcrypt (>= 3.1, < 4.0)
+      sequel (>= 4.1.0, < 6.0)
     sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
@@ -115,7 +118,6 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  bcrypt
   byebug
   config
   database_cleaner-sequel
@@ -132,6 +134,7 @@ DEPENDENCIES
   rspec
   sequel
   sequel-seed (~> 1.1, >= 1.1.2)
+  sequel_secure_password
   sinatra
   sinatra-contrib
 

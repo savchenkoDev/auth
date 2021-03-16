@@ -20,9 +20,10 @@ module UserSessions
     end
 
     def create_session
-      @session = UserSession.new(user_id: @user.id)
+      @session = UserSession.new
+
       if @session.valid?
-        @session.save
+        @user.add_session(@session)
       else
         fail!(@session.errors)
       end

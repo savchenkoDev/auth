@@ -1,5 +1,5 @@
 class UserSession < Sequel::Model
-  self.plugin :uuid
+  plugin :uuid
 
   many_to_one :user
 

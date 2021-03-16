@@ -1,31 +1,18 @@
-require 'bcrypt'
-
 class User < Sequel::Model
-  include BCrypt
+  plugin :association_dependencies
+  plugin :secure_password, include_validations: false
 
   NAME_FORMAT = %r{\A\w+\z}.freeze
 
   one_to_many :sessions, class: :UserSession
-  
+  add_association_dependencies sessions: :delete
+
   def validate
     super
     validates_presence :name
     validates_presence :email
     validates_unique :email
-    validates_presence :password
+    validates_presence :password if new?
     validates_format NAME_FORMAT, :name, message: 'Укажите имя, используя буквы, цифры или символ подчёркивания'
-  end
-
-  def password
-    BCrypt::Password.new(password_digest)
-  end
-
-  def password=(new_password)
-    @password = BCrypt::Password.create(new_password)
-    self.password_digest = @password
-  end
-
-  def authenticate(password_param)
-    self.password == password_param
   end
 end
