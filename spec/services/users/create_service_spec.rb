@@ -1,5 +1,6 @@
 RSpec.describe Users::CreateService do
   subject { described_class }
+
   let(:email) { 'bob1@example.com' }
 
   context 'valid parameters' do
@@ -16,18 +17,17 @@ RSpec.describe Users::CreateService do
     context 'email not exists' do
       let(:email) { 'test@email.com' }
       
-      it 'user was not created' do
+      it 'user was created' do
         expect { subject.call(params) }.to change(User, :count).by(1)
       end
     end
   end
 
   context 'invalid parameters' do
-    let(:params) { {name: 'bob', email: email, password: ''} }
+    let(:params) { {name: 'b.o.b', email: email, password: ''} }
 
     it 'does not create user' do
-      expect { subject.call(params) }
-        .not_to change { User.count }
+      expect { subject.call(params) }.not_to change(User, :count)
     end
 
     it 'assigns user' do
