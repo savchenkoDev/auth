@@ -6,3 +6,5 @@ db:
   user: postgres
 pagination:
   page_size: 10
+rabbit_mq:
+  consumers_pool: 10
