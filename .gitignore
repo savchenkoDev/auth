@@ -1,2 +1,7 @@
 .byebug_history
-/config/settings.yml
+/log
+!/log/.keep
+
+config/database.yml
+config/settings.local.yml
+config/settings/*.local.yml

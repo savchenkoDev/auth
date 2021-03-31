@@ -23,12 +23,19 @@ gem 'dry-validation'
 
 gem 'activesupport', require: false
 gem 'fast_jsonapi'
+gem 'rack-ougai'
+gem 'rack-request-id'
 
 # authentication
 gem 'jwt'
 
-# debug
-gem 'byebug'
+group :development, :test do
+  gem 'byebug'
+end
+
+group :development do
+  gem 'amazing_print'
+end
 
 gem 'bunny'
 
