@@ -10,6 +10,8 @@ queue.subscribe do |delivery_info, properties, payload|
   exchange.publish(
     user_id.to_s,
     routing_key: properties.reply_to,
-    correlation_id: properties.correlation_id
+    headers: {
+      request_id: properties.correlation_id
+    }
   )
 end
