@@ -30,6 +30,8 @@ gem 'jwt'
 # debug
 gem 'byebug'
 
+gem 'bunny'
+
 group :test do
   gem 'rspec'
   gem 'factory_bot'
