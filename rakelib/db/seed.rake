@@ -6,7 +6,7 @@ namespace :db do
     require './config/initializers/db'
 
     seed_path = File.expand_path('../../db/seeds', __dir__)
-    DB = Sequel.connect(Settings.db.to_hash)
+    DB = Sequel.connect(Settings.db.url || Settings.db.to_hash)
     
     Sequel.extension :seed
     Sequel::Seed.setup :development
