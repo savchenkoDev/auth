@@ -25,6 +25,7 @@ gem 'activesupport', require: false
 gem 'fast_jsonapi'
 gem 'rack-ougai'
 gem 'rack-request-id'
+gem 'prometheus-client'
 
 # authentication
 gem 'jwt'
