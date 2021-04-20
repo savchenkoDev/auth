@@ -6,7 +6,7 @@ namespace :db do
 
     Sequel.extension :migration
 
-    Sequel.connect(Settings.db.to_hash) do |db|
+    Sequel.connect(Settings.db.url || Settings.db.to_hash) do |db|
       db.extension :schema_dumper
       
       migrations = File.expand_path('../../db/migrations', __dir__)

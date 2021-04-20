@@ -1,0 +1,65 @@
+---
+- hosts: app
+  gather_facts: no
+  vars:
+    image: auth
+    registry: docker.pkg.github.com
+    repository: '{{ registry }}/{{ lookup("env", "DOCKER_USER") }}/auth/{{ image }}'
+  tasks:
+    - name: build docker image
+      delegate_to: 127.0.0.1
+      docker_image:
+        build:
+          path: ../
+          pull: no
+        name: '{{ image }}'
+        source: build
+        force_source: yes
+    - name: login to docker registry
+      delegate_to: 127.0.0.1
+      docker_login:
+        registry: '{{ registry }}'
+        username: '{{ lookup("env", "DOCKER_USER") }}'
+        password: '{{ lookup("env", "DOCKER_PASSWORD") }}'
+    - name: push image
+      delegate_to: 127.0.0.1
+      docker_image:
+        name: '{{ image }}'
+        repository: '{{ repository }}'
+        push: yes
+        source: local
+        force_tag: yes
+    - name: login to docker registry on remote
+      become: yes
+      docker_login:
+        registry: '{{ registry }}'
+        username: '{{ lookup("env", "DOCKER_USER") }}'
+        password: '{{ lookup("env", "DOCKER_PASSWORD") }}'
+    - name: pull image on remote
+      become: yes
+      docker_image:
+        name: '{{ repository }}'
+        source: pull
+        force_source: yes
+    - name: run database migrations
+      become: yes
+      run_once: yes
+      docker_container:
+        name: auth-migrations
+        image: '{{ repository }}'
+        network_mode: host
+        detach: no
+        cleanup: yes
+        command: bin/rake db:migrate
+        env_file: '/home/{{ ansible_user }}/.env'
+    - name: start auth container
+      become: yes
+      docker_container:
+        name: auth
+        image: '{{ repository }}'
+        network_mode: host
+        restart_policy: on-failure
+        restart_retries: 10
+        env_file: '/home/{{ ansible_user }}/.env'
+        tty: yes
+        state: started
